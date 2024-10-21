@@ -1,4 +1,5 @@
 import React from 'react'
+import { useCreatePizzaMutation } from '../state/pizzaApi'
 
 const initialFormState = { // suggested
   fullName: '',
@@ -11,6 +12,9 @@ const initialFormState = { // suggested
 }
 
 export default function PizzaForm() {
+  //const [state, dispatch] = useReducer(reducer, initialFormState)
+  const [createPizza] = useCreatePizzaMutation()
+
   return (
     <form>
       <h2>Pizza Form</h2>

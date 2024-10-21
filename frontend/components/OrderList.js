@@ -1,17 +1,20 @@
 import React from 'react'
+import { useGetPizzaQuery } from '../state/pizzaApi'
 
 export default function OrderList() {
-  const orders = []
+  const {data} = useGetPizzaQuery()
+  console.log(data)
+
   return (
     <div id="orderList">
       <h2>Pizza Orders</h2>
       <ol>
         {
-          orders.map(() => {
+          data?.map((element) => {
             return (
-              <li key={1}>
+              <li key={element.id}>
                 <div>
-                  order details here
+                  {`${element.customer} ordered a size ${element.size} with ${element.toppings.length} toppings`}
                 </div>
               </li>
             )
