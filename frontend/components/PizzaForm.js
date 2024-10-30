@@ -1,19 +1,33 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import { useCreatePizzaMutation } from '../state/pizzaApi'
 
-const initialFormState = { // suggested
+const CHANGE_NAME = 'CHANGE_NAME'
+const CHANGE__SIZE = 'CHANGE_SIZE'
+const CHANGE_TOPPINGS = 'CHANGE_TOPPINGS'
+
+
+const initialFormState = { 
   fullName: '',
   size: '',
-  '1': false,
-  '2': false,
-  '3': false,
-  '4': false,
-  '5': false,
+  toppings: []
+}
+
+const reducer = (state, action) => {
+  switch(action.type){
+    case CHANGE_NAME:
+      return{...state, fullName: action.payload}
+    case CHANGE__SIZE:
+      return{...state, size: action.payload}
+    case CHANGE_TOPPINGS:
+      return{...state, toppings: action.payload}
+    default:
+        return state
+  }
 }
 
 export default function PizzaForm() {
   //const [state, dispatch] = useReducer(reducer, initialFormState)
-  const [createPizza] = useCreatePizzaMutation()
+  //const [createPizza] = useCreatePizzaMutation()
 
   return (
     <form>
