@@ -4,10 +4,11 @@ import { useGetPizzaQuery } from '../state/pizzaApi'
 import { setFilter } from '../state/pizzaSlice'
 
 export default function OrderList() {
-  const {data} = useGetPizzaQuery()
+  const {data, error, isLoading, isSuccess} = useGetPizzaQuery()
   const filter = useSelector((state) => state.pizzaReducer.filterSize)
   const dispatch = useDispatch()
   console.log(data)
+  console.log(error, isLoading, isSuccess)
   console.log(filter === 'All')
   
   const onClickHandler = (size) => {
@@ -23,7 +24,7 @@ export default function OrderList() {
           return(filter === 'All' || filter === element.size ?
           <li key={element.id}>
             <div>
-              {`${element.customer} ordered a size ${element.size} with ${element.toppings.length} toppings`}
+              {`${element.customer} ordered a size ${element.size} with ${element?.toppings.length} toppings`}
             </div>
           </li> 
           : <div></div>)

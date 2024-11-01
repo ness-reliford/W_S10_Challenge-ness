@@ -40,7 +40,7 @@ const reducer = (state, action) => {
 export default function PizzaForm() {
   const [state, dispatch] = useReducer(reducer, initialFormState)
   const [createPizza, { error: createPizzaError, isLoading}] = useCreatePizzaMutation()
-
+  console.log(state)
   //change handlers
 
   const handleNameChange = (evt) => {
@@ -108,19 +108,19 @@ export default function PizzaForm() {
 
       <div className="input-group">
         <label>
-          <input data-testid="checkPepperoni" name="1" type="checkbox" checked={state.toppings.includes('1')} onChange={handleToppingChange}/>
+          <input data-testid="checkPepperoni" name="1" type="checkbox" value={"1"} checked={state.toppings.includes("1")} onChange={handleToppingChange}/>
           Pepperoni<br /></label>
         <label>
-          <input data-testid="checkGreenpeppers" name="2" type="checkbox" checked={state.toppings.includes('2')} onChange={handleToppingChange} />
+          <input data-testid="checkGreenpeppers" name="2" type="checkbox" value={"2"}checked={state.toppings.includes("2")} onChange={handleToppingChange} />
           Green Peppers<br /></label>
         <label>
-          <input data-testid="checkPineapple" name="3" type="checkbox" checked={state.toppings.includes('3')} onChange={handleToppingChange}/>
+          <input data-testid="checkPineapple" name="3" type="checkbox" value={"3"}checked={state.toppings.includes("3")} onChange={handleToppingChange}/>
           Pineapple<br /></label>
         <label>
-          <input data-testid="checkMushrooms" name="4" type="checkbox" checked={state.toppings.includes('4')} onChange={handleToppingChange}/>
+          <input data-testid="checkMushrooms" name="4" type="checkbox"value={"4"} checked={state.toppings.includes("4")} onChange={handleToppingChange}/>
           Mushrooms<br /></label>
         <label>
-          <input data-testid="checkHam" name="5" type="checkbox" checked={state.toppings.includes('5')} onChange={handleToppingChange}/>
+          <input data-testid="checkHam" name="5" type="checkbox" value={"5"}checked={state.toppings.includes("5")} onChange={handleToppingChange}/>
           Ham<br /></label>
       </div>
       <input data-testid="submit" type="submit" />
