@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useGetPizzaQuery } from '../state/pizzaApi'
-import { setFilter } from '../state/pizzaSlice'
+import { setFilter, addOrders } from '../state/pizzaSlice'
 
 export default function OrderList() {
   const {data, error, isLoading, isSuccess} = useGetPizzaQuery()
@@ -15,6 +15,7 @@ export default function OrderList() {
     dispatch(setFilter(size))
   }
 
+ 
   return (
     <div id="orderList">
       <h2>Pizza Orders</h2>
@@ -24,7 +25,7 @@ export default function OrderList() {
           return(filter === 'All' || filter === element.size ?
           <li key={element.id}>
             <div>
-              {`${element.customer} ordered a size ${element.size} with ${element?.toppings.length} toppings`}
+              {`${element.customer} ordered a size ${element.size} with ${element?.toppings?element.toppings.length : 'no'} toppings`}
             </div>
           </li> 
           : <div></div>)

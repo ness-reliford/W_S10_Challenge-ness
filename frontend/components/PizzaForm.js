@@ -1,5 +1,5 @@
-import React, { useReducer } from 'react'
-import { useCreatePizzaMutation } from '../state/pizzaApi'
+import React, { useReducer, useState } from 'react'
+import { useCreatePizzaMutation, useGetPizzaQuery } from '../state/pizzaApi'
 
 const CHANGE_NAME = 'CHANGE_NAME'
 const CHANGE_SIZE = 'CHANGE_SIZE'
@@ -38,9 +38,11 @@ const reducer = (state, action) => {
 }
 
 export default function PizzaForm() {
+  const [pizzaOrder,setPizzaOrder] = useState(initialFormState)
   const [state, dispatch] = useReducer(reducer, initialFormState)
-  const [createPizza, { error: createPizzaError, isLoading}] = useCreatePizzaMutation()
-  console.log(state)
+  const [createPizza, { error: createPizzaError, isLoading, isError}] = useCreatePizzaMutation()
+  const [error, setError] = useState("")
+  const { refetch } = useGetPizzaQuery()
   //change handlers
 
   const handleNameChange = (evt) => {
@@ -61,11 +63,12 @@ export default function PizzaForm() {
     const { fullName, size, toppings } = state;
     try{
       await createPizza({fullName, size, toppings}).unwrap()
-      alert('Pizza order created successfully!')
+      // alert('Pizza order created successfully!')
+      refetch()
       resetForm();
     } catch (err) {
-      console.error('Error creating pizza:', err)
-      alert('Error creating pizza. Please try again.');
+      console.log(err)
+      setError(err.data.message)
     }
   }
 
@@ -77,7 +80,7 @@ export default function PizzaForm() {
     <form onSubmit={handleSubmit}>
       <h2>Pizza Form</h2>
       {isLoading && <div className='pending'>Order in progress...</div>}
-      {createPizzaError && <div className='failure'>Order failed: {createPizzaError.message}</div>}
+      {isError && <div className='failure'>{`Order failed: ${error}`}</div>}
 
       <div className="input-group">
         <div>

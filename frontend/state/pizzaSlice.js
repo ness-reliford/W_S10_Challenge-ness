@@ -9,7 +9,11 @@ export const pizzaSlice = createSlice({
     reducers: {
         setFilter: (state, action) => {
             state.filterSize = action.payload
+        },
+        addOrder: (state,action)=>{
+            state.orders= [...state.orders, action.payload]
         }
+        
     }
 })
 
